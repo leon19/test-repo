@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha 'src/**/*.spec.js'"
+    "test": "mocha 'src/**/*.spec.js'",
+    "cover": "nyc npm test",
+    "coveralls": "npm run cover && cat reports/coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,35 @@
   "homepage": "https://github.com/leon19/test-repo#readme",
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^5.2.0"
+    "coveralls": "^3.0.2",
+    "mocha": "^5.2.0",
+    "nyc": "^13.0.1"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "build/**",
+      "tests/**",
+      "node_modules/**"
+    ],
+    "reporter": [
+      "clover",
+      "cobertura",
+      "html",
+      "json",
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "clean": true,
+    "tempDirectory": "reports/.nyc_ouptut",
+    "reportDir": "reports/coverage",
+    "all": true
   }
 }
